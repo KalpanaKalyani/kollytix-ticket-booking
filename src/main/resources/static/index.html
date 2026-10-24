@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KollyTix</title>
     <style>
-        :root{--bg:#f2f2f2;--card:#fff;--text:#222;--muted:#666;--line:#ddd;--pink:#f84464;}
-        body.dark{--bg:#121212;--card:#1e1e24;--text:#eee;--muted:#aaa;--line:#333;}
+        :root{--bg:#0b0d14;--card:#141824;--text:#f1f3f9;--muted:#8d94a8;--line:#252b3b;--pink:#e11d2e;--s:27px;}
         *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
-        body{background:var(--bg);color:var(--text);}
-        .g-NOW_SHOWING{background:linear-gradient(135deg,#f84464,#7b2ff7);}
-        .g-UPCOMING{background:linear-gradient(135deg,#f7971e,#ffd200);}
-        .g-RE_RELEASE{background:linear-gradient(135deg,#11998e,#38ef7d);}
-        .g-CONCERT{background:linear-gradient(135deg,#00c6ff,#0072ff);}
+        body{background:radial-gradient(circle at top,#141a2e 0,#0b0d14 55%);color:var(--text);min-height:100vh;}
+        .g-NOW_SHOWING{background:linear-gradient(135deg,#e11d2e,#4b1fa8);}
+        .g-UPCOMING{background:linear-gradient(135deg,#f7971e,#b36b00);}
+        .g-RE_RELEASE{background:linear-gradient(135deg,#11998e,#0b5d52);}
+        .g-CONCERT{background:linear-gradient(135deg,#00c6ff,#0050b3);}
 
-        /* splash */
         #splash{position:fixed;inset:0;background:radial-gradient(circle at center,#3a1c71,#0f0c29);z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transition:opacity .6s;}
         #splash.hide{opacity:0;pointer-events:none;}
         #splash .logo{font-size:56px;font-weight:bold;letter-spacing:2px;animation:pop 1s ease;}
@@ -25,18 +23,17 @@
         @keyframes pop{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
         @keyframes fill{to{width:100%}}
 
-        header{background:#333545;color:#fff;padding:14px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        header{background:rgba(11,13,20,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);color:#fff;padding:14px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:20;}
         header h1 span{color:var(--pink);}
         .hr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-        #search{padding:8px 14px;border-radius:20px;border:none;width:200px;}
-        .chip{border:1px solid #ccc;background:var(--card);color:var(--text);padding:7px 16px;border-radius:20px;cursor:pointer;font-size:14px;}
+        #search{padding:8px 14px;border-radius:20px;border:1px solid var(--line);background:#1a2030;color:#fff;width:200px;}
+        .chip{border:1px solid var(--line);background:#1a2030;color:var(--text);padding:7px 16px;border-radius:20px;cursor:pointer;font-size:14px;}
         .chip.active{background:var(--pink);color:#fff;border-color:var(--pink);}
 
-        /* hero */
         #heroWrap{position:relative;}
         .slide{position:relative;height:330px;overflow:hidden;cursor:pointer;display:flex;align-items:flex-end;}
         .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-        .slide .ov{position:relative;z-index:2;width:100%;padding:28px 40px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.85));}
+        .slide .ov{position:relative;z-index:2;width:100%;padding:28px 40px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.9));}
         .slide h2{font-size:34px;margin:6px 0;}
         .tagx{background:var(--pink);padding:3px 10px;border-radius:10px;font-size:12px;font-weight:bold;}
         .nv{position:absolute;top:45%;z-index:3;background:rgba(0,0,0,.5);color:#fff;border:none;font-size:30px;width:42px;height:56px;cursor:pointer;}
@@ -45,14 +42,14 @@
         .dots i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#ffffff77;margin-left:6px;cursor:pointer;}
         .dots i.on{background:var(--pink);}
 
-        .tabs{background:var(--card);padding:10px 30px;border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap;}
-        .tabs button{border:none;background:none;color:var(--text);padding:10px 16px;font-size:16px;cursor:pointer;border-bottom:3px solid transparent;}
-        .tabs button.active{border-bottom-color:var(--pink);color:var(--pink);font-weight:bold;}
+        .tabs{padding:10px 30px;border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap;}
+        .tabs button{border:none;background:none;color:var(--muted);padding:10px 16px;font-size:16px;cursor:pointer;border-bottom:3px solid transparent;}
+        .tabs button.active{border-bottom-color:var(--pink);color:#fff;font-weight:bold;}
         .container{padding:26px 30px;}
         .sec{font-size:20px;margin:0 0 14px;}
         .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:22px;}
-        .card{background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:pointer;transition:.2s;}
-        .card:hover{transform:translateY(-5px);}
+        .card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:.2s;}
+        .card:hover{border-color:var(--pink);transform:translateY(-6px);}
         .poster{position:relative;height:270px;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;padding:10px;}
         .poster .ph{font-weight:bold;font-size:18px;}
         .poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
@@ -62,13 +59,14 @@
         .info p{color:var(--muted);font-size:12px;}
 
         /* modal */
-        #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);align-items:center;justify-content:center;z-index:50;}
-        .box{background:var(--card);color:var(--text);border-radius:12px;padding:22px;max-width:720px;width:96%;max-height:95vh;overflow:auto;position:relative;}
+        #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);align-items:center;justify-content:center;z-index:50;}
+        .box{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:22px;max-width:720px;width:96%;max-height:95vh;overflow:auto;position:relative;}
         .box.full{max-width:980px;width:100%;height:100vh;max-height:100vh;border-radius:0;padding:0;}
-        .x{position:absolute;top:10px;right:14px;font-size:22px;cursor:pointer;background:rgba(0,0,0,.5);color:#fff;border:none;border-radius:50%;width:34px;height:34px;z-index:5;}
-        .btn{padding:11px 20px;border:none;border-radius:6px;cursor:pointer;font-size:15px;background:var(--pink);color:#fff;}
-        .btn.sec{background:var(--line);color:var(--text);}
-        .btn:disabled{background:#999;cursor:not-allowed;}
+        .box.screenfull{max-width:none;width:100%;height:100vh;max-height:100vh;border-radius:0;padding:0;border:none;background:#0b0d14;}
+        .x{position:absolute;top:10px;right:14px;font-size:22px;cursor:pointer;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:34px;height:34px;z-index:30;}
+        .btn{padding:11px 20px;border:none;border-radius:6px;cursor:pointer;font-size:15px;background:linear-gradient(90deg,#e11d2e,#b3121f);color:#fff;}
+        .btn.sec{background:#252b3b;color:var(--text);}
+        .btn:disabled{background:#3a4258;color:#888;cursor:not-allowed;}
         .bar{display:flex;gap:10px;margin-top:16px;} .bar .btn{flex:1;}
 
         /* detail page */
@@ -81,41 +79,21 @@
         .rate{font-size:26px;font-weight:bold;margin:6px 0;} .rate small{font-size:14px;font-weight:normal;color:var(--muted);}
         .meta{color:var(--muted);margin:6px 0 12px;font-size:15px;}
         .pick{margin:10px 0;} .pick b{display:block;margin-bottom:6px;font-size:14px;} .pick .chip{margin:0 6px 6px 0;}
-        .trend{display:flex;align-items:center;gap:12px;border:1px solid #b9c7ff;border-radius:10px;padding:8px;margin:16px 0;}
+        .trend{display:flex;align-items:center;gap:12px;border:1px solid #2b3a66;border-radius:10px;padding:8px;margin:16px 0;}
         .trend span{background:linear-gradient(90deg,#4f7cff,#7aa2ff);color:#fff;padding:8px 14px;border-radius:8px;font-weight:bold;}
         .hs{display:flex;gap:14px;overflow-x:auto;padding-bottom:8px;}
-        .offer{min-width:230px;border:1px dashed var(--pink);background:#fff7e6;color:#333;border-radius:12px;padding:12px;cursor:pointer;}
-        .offer.on{background:#d9f7e1;border-color:#1ea83c;}
-        .offer b{display:block;margin-bottom:4px;} .offer small{color:#555;}
+        .offer{min-width:230px;border:1px dashed var(--pink);background:#1a1420;color:#eee;border-radius:12px;padding:12px;cursor:pointer;}
+        .offer.on{background:#0f2a1a;border-color:#1ea83c;}
+        .offer b{display:block;margin-bottom:4px;} .offer small{color:#aaa;}
         .castc{text-align:center;min-width:92px;font-size:13px;}
-        .av{width:84px;height:84px;border-radius:50%;overflow:hidden;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:bold;color:#fff;background:linear-gradient(135deg,#7b2ff7,#f84464);position:relative;}
+        .av{width:84px;height:84px;border-radius:50%;overflow:hidden;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:bold;color:#fff;background:linear-gradient(135deg,#4b1fa8,#e11d2e);position:relative;}
         .av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
         .rv{border:1px solid var(--line);border-radius:10px;padding:12px;margin:8px 0;font-size:14px;}
         .rcard{min-width:140px;cursor:pointer;} .rcard .poster{height:200px;border-radius:8px;overflow:hidden;}
         .rcard p{font-size:13px;margin-top:4px;}
-        .stick{position:sticky;bottom:0;background:var(--card);padding:12px 24px;border-top:1px solid var(--line);z-index:6;}
+        .stick{position:sticky;bottom:0;background:#0f1320;padding:12px 24px;border-top:1px solid var(--line);z-index:6;}
         .stick .btn{width:100%;padding:16px;font-size:18px;border-radius:10px;}
         .dbody h3{margin:20px 0 10px;}
-
-        /* booking steps */
-        .screen{background:#bbb;text-align:center;padding:6px;margin:14px 40px;border-radius:0 0 40px 40px;font-size:12px;color:#222;}
-        .row{display:flex;justify-content:center;gap:5px;margin:5px 0;align-items:center;}
-        .row b{width:16px;font-size:12px;} .row small{width:78px;font-size:10px;color:var(--muted);text-align:right;}
-        .seat{width:28px;height:28px;border:1px solid #1ea83c;border-radius:5px 5px 0 0;background:var(--card);color:var(--text);cursor:pointer;font-size:10px;}
-        .seat.sel{background:#1ea83c;color:#fff;} .seat.taken{background:#555;border-color:#555;color:#999;cursor:not-allowed;}
-        .timer{background:#fff3cd;color:#856404;padding:8px;border-radius:6px;text-align:center;font-weight:bold;margin-bottom:8px;}
-        .snack{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);}
-        .snack .q button{width:28px;height:28px;border-radius:50%;border:1px solid var(--pink);background:none;color:var(--pink);cursor:pointer;font-size:16px;}
-        .snack .q span{display:inline-block;width:26px;text-align:center;}
-        input[type=text],select{padding:9px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--text);}
-        .pay{display:block;padding:12px;border:1px solid var(--line);border-radius:8px;margin:8px 0;cursor:pointer;}
-        .pay input{margin-right:10px;}
-        .sum{background:var(--bg);padding:12px;border-radius:8px;margin-top:12px;font-size:14px;line-height:1.8;}
-        .sum .t{font-weight:bold;font-size:17px;color:var(--pink);}
-        .ticket{border:2px dashed var(--pink);border-radius:12px;padding:18px;text-align:center;}
-        .ticket h2{color:var(--pink);} .ticket p{margin:5px 0;}
-        .bars{margin-top:12px;height:46px;} .bars i{display:inline-block;height:46px;background:var(--text);margin-right:2px;}
-        .bk{border:1px solid var(--line);border-radius:8px;padding:12px;margin:10px 0;font-size:14px;}
 
         /* theatre + date + showtime */
         .dts{display:flex;gap:8px;overflow-x:auto;padding:6px 0 12px;}
@@ -125,13 +103,124 @@
         .th{border-top:1px solid var(--line);padding:14px 0;}
         .thn{font-weight:bold;margin-bottom:10px;}
         .tg{display:flex;flex-wrap:wrap;gap:10px;}
-        .show{min-width:104px;padding:8px 10px;border-radius:6px;background:var(--card);color:var(--text);cursor:pointer;font-size:14px;border:2px solid #1ea83c;}
+        .show{min-width:104px;padding:8px 10px;border-radius:6px;background:#141824;color:var(--text);cursor:pointer;font-size:14px;border:2px solid #1ea83c;}
         .show small{display:block;font-size:10px;color:var(--muted);margin-top:2px;}
         .show.fill{border-color:#f0a500;}
-        .show.past{border-color:#ccc;color:#aaa;cursor:not-allowed;}
+        .show.past{border-color:#333;color:#555;cursor:not-allowed;}
         .lg{font-size:12px;color:var(--muted);margin:6px 0;}
 
-        @media(max-width:600px){.slide{height:220px}.slide h2{font-size:22px}.banner{height:200px}}
+        /* FULL SCREEN SEAT PAGE */
+        .sp{position:relative;height:100vh;overflow:auto;}
+        .sp-top{position:relative;padding:20px 40px 24px;overflow:hidden;border-bottom:1px solid var(--line);}
+        .sp-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(14px) brightness(.35);transform:scale(1.15);}
+        .sp-bgc{position:absolute;inset:0;}
+        .sp-in{position:relative;z-index:2;}
+        .crumb{font-size:12px;color:var(--muted);margin-bottom:16px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;}
+        .crumb a{cursor:pointer;color:#ccc;}
+        .crumb .on{color:#fff;border-bottom:2px solid var(--pink);padding-bottom:3px;}
+        .mv{display:flex;gap:22px;flex-wrap:wrap;}
+        .mv .pp{width:130px;height:190px;border-radius:8px;overflow:hidden;position:relative;flex-shrink:0;}
+        .mv .pp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+        .mv .tt{flex:1;min-width:240px;}
+        .mv h2{font-size:26px;margin:6px 0;}
+        .pills{display:flex;gap:8px;align-items:center;font-size:12px;color:#ccc;flex-wrap:wrap;}
+        .pill{background:#e6a100;color:#000;padding:2px 7px;border-radius:4px;font-weight:bold;font-size:11px;}
+        .dtl{display:flex;gap:40px;margin-top:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);}
+        .dtl b{display:block;color:#fff;margin-top:6px;font-size:15px;}
+        .sp-main{display:flex;gap:30px;padding:24px 40px 60px;flex-wrap:wrap;}
+        .sp-left{flex:1;min-width:300px;}
+        .sp-right{width:300px;flex-shrink:0;}
+        .sp-h{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:6px;}
+        .sp-h h3{font-weight:normal;font-size:22px;}
+        .lgd{display:flex;gap:16px;font-size:11px;color:var(--muted);}
+        .lgd i{display:inline-block;width:12px;height:12px;border:1px solid #666;border-radius:3px;margin-right:5px;vertical-align:middle;}
+        .lgd .sl i{background:var(--pink);border-color:var(--pink);} .lgd .bk i{background:#2b3040;border-color:#2b3040;}
+        .curve{height:26px;margin:18px 30px 6px;border-top:3px solid #3a4258;border-radius:50%/100% 100% 0 0;box-shadow:0 -14px 24px -10px rgba(120,140,255,.35);}
+        .curve-l{text-align:center;font-size:11px;color:var(--muted);margin-bottom:10px;}
+        .timer{background:#2a1f10;color:#f0b24a;padding:8px;border-radius:6px;text-align:center;font-weight:bold;font-size:13px;margin-bottom:14px;}
+        .auto{margin:6px 0 4px;font-size:13px;color:var(--muted);}
+
+        /* theatre seat map */
+        .seats{overflow-x:auto;padding-bottom:10px;}
+        .map{width:max-content;margin:0 auto;padding:0 6px;}
+        .tier{font-size:13px;color:#cfd4e6;border-bottom:1px solid var(--line);padding:16px 0 8px;margin-bottom:8px;}
+        .tier b{color:#fff;}
+        .row{display:flex;justify-content:center;gap:16px;margin:7px 0;align-items:center;}
+        .row>b{width:16px;font-size:12px;color:var(--muted);text-align:center;}
+        .blk{display:flex;gap:5px;}
+        .seat{width:var(--s);height:var(--s);border:1px solid #3a8f55;border-radius:6px 6px 2px 2px;background:transparent;color:#9fd6b2;cursor:pointer;font-size:10px;padding:0;}
+        .seat:hover:not(.taken){border-color:var(--pink);color:#fff;}
+        .seat.sel{background:var(--pink);border-color:var(--pink);color:#fff;}
+        .seat.taken{background:#2b3040;border-color:#2b3040;color:#4a5068;cursor:not-allowed;}
+        .sel-t{font-size:12px;color:var(--muted);margin-bottom:10px;}
+        .sl-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;}
+        .sl-row span:first-child{color:#fff;}
+        .sl-row u{cursor:pointer;color:var(--muted);text-decoration:none;margin-left:10px;}
+        .empty{color:var(--muted);font-size:13px;padding:10px 0;}
+        .buy{width:100%;margin-top:18px;padding:14px;border:none;border-radius:30px;background:linear-gradient(90deg,#e11d2e,#b3121f);color:#fff;font-size:15px;font-weight:bold;cursor:pointer;}
+        .buy:disabled{background:#3a4258;color:#888;cursor:not-allowed;}
+
+        /* other steps */
+        .snack{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);}
+        .snack .q button{width:28px;height:28px;border-radius:50%;border:1px solid var(--pink);background:none;color:var(--pink);cursor:pointer;font-size:16px;}
+        .snack .q span{display:inline-block;width:26px;text-align:center;}
+        input[type=text],input[type=password],input[type=tel],select{padding:10px;border:1px solid var(--line);border-radius:6px;background:#1a2030;color:var(--text);font-size:14px;}
+        .pay{display:block;padding:12px;border:1px solid var(--line);border-radius:8px;margin:8px 0;cursor:pointer;}
+        .pay input{margin-right:10px;}
+        .sum{background:#0f1320;padding:12px;border-radius:8px;margin-top:12px;font-size:14px;line-height:1.8;}
+        .sum .t{font-weight:bold;font-size:17px;color:var(--pink);}
+        .bk{border:1px solid var(--line);border-radius:8px;padding:12px;margin:10px 0;font-size:14px;}
+        .upihint{background:#0f1320;border:1px dashed #3a4258;border-radius:10px;padding:12px;margin:10px 0;font-size:13px;color:var(--muted);}
+
+        /* payment details form */
+        .pform{background:#0f1320;border:1px solid var(--line);border-radius:10px;padding:14px;margin:10px 0;}
+        .pform h4{font-size:15px;margin-bottom:10px;}
+        .fld{margin-bottom:10px;}
+        .fld label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;}
+        .fld input,.fld select{width:100%;}
+        .frow{display:flex;gap:10px;} .frow .fld{flex:1;}
+        .secure{font-size:11px;color:#f0b24a;margin-top:4px;}
+
+        /* UPI SCANNER PAGE */
+        .scanpg{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,#1b2140 0,#070910 70%);padding:20px;}
+        .sc-in{text-align:center;width:100%;max-width:380px;}
+        .sc-h{font-size:24px;font-weight:bold;}
+        .sc-s{color:var(--muted);font-size:13px;margin:4px 0 18px;}
+        .viewf{position:relative;display:inline-block;padding:26px;}
+        .viewf .c{position:absolute;width:34px;height:34px;border:4px solid #22e06b;}
+        .c1{top:0;left:0;border-right:none!important;border-bottom:none!important;border-radius:10px 0 0 0;}
+        .c2{top:0;right:0;border-left:none!important;border-bottom:none!important;border-radius:0 10px 0 0;}
+        .c3{bottom:0;left:0;border-right:none!important;border-top:none!important;border-radius:0 0 0 10px;}
+        .c4{bottom:0;right:0;border-left:none!important;border-top:none!important;border-radius:0 0 10px 0;}
+        .qrwrap{position:relative;display:inline-block;background:#fff;padding:12px;border-radius:10px;overflow:hidden;}
+        .qrwrap svg{display:block;width:210px;height:210px;}
+        .scanline{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#22e06b,transparent);box-shadow:0 0 14px #22e06b;animation:scan 2s ease-in-out infinite;}
+        @keyframes scan{0%{top:4%}50%{top:96%}100%{top:4%}}
+        .sc-in .amt{font-size:30px;font-weight:bold;color:#fff;margin:10px 0 2px;}
+        .sc-in .upi{font-size:14px;color:var(--muted);}
+        .sc-in .qt{margin:12px auto;display:inline-block;background:#2a1f10;color:#f0b24a;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:bold;}
+        .apps{display:flex;gap:8px;justify-content:center;margin:10px 0 4px;font-size:12px;color:var(--muted);flex-wrap:wrap;}
+        .apps span{border:1px solid var(--line);padding:5px 12px;border-radius:14px;}
+        .sc-note{font-size:11px;color:var(--muted);margin-top:10px;}
+
+        /* ORDER CONFIRMED */
+        .conf{position:relative;text-align:center;overflow:hidden;padding:10px 4px 4px;}
+        .tick{width:92px;height:92px;margin:6px auto 4px;}
+        .tick circle{fill:none;stroke:#22c55e;stroke-width:3;stroke-dasharray:151;stroke-dashoffset:151;animation:draw .7s ease forwards;}
+        .tick path{fill:none;stroke:#22c55e;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .5s .6s ease forwards;}
+        @keyframes draw{to{stroke-dashoffset:0}}
+        .conf h2{font-size:26px;color:#22c55e;opacity:0;animation:up .6s 1s forwards;}
+        .conf .sub{color:var(--muted);font-size:13px;margin:4px 0 14px;opacity:0;animation:up .6s 1.2s forwards;}
+        .ticket{border:2px dashed var(--pink);border-radius:12px;padding:16px;text-align:center;opacity:0;animation:up .6s 1.4s forwards;background:#0f1320;}
+        .ticket h3{font-size:22px;} .ticket p{margin:5px 0;font-size:14px;}
+        .bars{margin-top:12px;height:46px;} .bars i{display:inline-block;height:46px;background:#fff;margin-right:2px;}
+        .enjoy{margin-top:18px;font-size:24px;font-weight:bold;opacity:0;animation:up .7s 1.9s forwards;background:linear-gradient(90deg,#f7b733,#e11d2e);-webkit-background-clip:text;background-clip:text;color:transparent;}
+        .conf .bar{opacity:0;animation:up .6s 2.1s forwards;}
+        @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+        .cf{position:absolute;top:-10px;width:8px;height:14px;opacity:.9;animation:fall linear forwards;}
+        @keyframes fall{to{transform:translateY(520px) rotate(540deg);opacity:0}}
+
+        @media(max-width:700px){:root{--s:21px}.slide{height:220px}.slide h2{font-size:22px}.banner{height:200px}.sp-top,.sp-main{padding-left:16px;padding-right:16px}.sp-right{width:100%}.row{gap:10px}.blk{gap:3px}}
         @media print{body *{visibility:hidden;} .ticket,.ticket *{visibility:visible;} .ticket{position:absolute;left:0;top:0;width:100%;}}
     </style>
 </head>
@@ -149,7 +238,6 @@
         <input id="search" placeholder="🔍 Search movie / concert" oninput="q=this.value;render()">
         <span id="langs"></span>
         <button class="chip" onclick="showMyBookings()">🎟️ My Bookings</button>
-        <button class="chip" onclick="document.body.classList.toggle('dark')">🌙</button>
     </div>
 </header>
 
@@ -173,9 +261,10 @@
     const APP_NAME='KollyTix';
     const SPLASH_MS=3500;
 
-    let movies=[], lang='All', tab='NOW_SHOWING', q='', cur=null, st={}, timer=null;
+    let movies=[], lang='All', tab='NOW_SHOWING', q='', cur=null, st={}, timer=null, qrTimer=null;
     let heroList=[], heroIdx=0, heroTimer=null;
     const $=id=>document.getElementById(id);
+    const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const label={NOW_SHOWING:'In cinemas',UPCOMING:'Coming soon',RE_RELEASE:'Re-release',CONCERT:'Live concert'};
     const titles={NOW_SHOWING:'Now Showing',UPCOMING:'Coming Soon',RE_RELEASE:'Re-Release',CONCERT:'Concerts'};
     const icons={NOW_SHOWING:'🎬',UPCOMING:'🎞️',RE_RELEASE:'🔁',CONCERT:'🎤'};
@@ -191,6 +280,8 @@
         ['Divya S.',4,'Nalla story, music semma. Family oda paakalam.'],
         ['Karthik R.',4,'Interval block thaan highlight.']
     ];
+    const BANKS=['State Bank of India','HDFC Bank','ICICI Bank','Axis Bank','Indian Bank','Canara Bank','Kotak Mahindra Bank','Indian Overseas Bank'];
+    const WALLETS=['Paytm Wallet','PhonePe Wallet','Amazon Pay','Mobikwik'];
     const mult=r=>r<2?1.5:r<5?1.2:1;
     const CITIES={
         'Madurai':['PVR Madurai','INOX Madurai','Cinepolis Madurai','Mega Cinemas Madurai'],
@@ -200,6 +291,10 @@
     const SHOW_TIMES=['09:00 AM','10:30 AM','12:30 PM','02:00 PM','04:10 PM','06:20 PM','08:35 PM','11:00 PM'];
     const DAYS=['SUN','MON','TUE','WED','THU','FRI','SAT'];
     const MONTHS=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    const ROWS='ABCDEFGHIJK'.split('');
+    const BLOCKS=[[1,6],[7,18],[19,24]];
+    const TIERS=[{name:'PREMIUM',from:0,to:1},{name:'GOLD',from:2,to:4},{name:'SILVER',from:5,to:10}];
+
     function pickShow(t,tm,fmt){
         const d=new Date(); d.setDate(d.getDate()+st.dateIdx);
         st.theatre=t; st.time=tm; st.format=fmt;
@@ -210,7 +305,6 @@
     const banner=m=>(m.posterUrl||'').replace('/posters/','/banners/');
     function bf(img,p){ if(!img.dataset.t && p){img.dataset.t=1;img.src=p;} else img.remove(); }
 
-    /* ---------- splash + init ---------- */
     document.title=APP_NAME;
     const nameHtml=APP_NAME.replace(/^(.{5})(.*)$/,'$1<span>$2</span>');
     $('appName').innerHTML=nameHtml;
@@ -225,7 +319,6 @@
         render();
     }
 
-    /* ---------- hero slideshow ---------- */
     function buildHero(){
         heroList=movies.filter(m=>m.category==='UPCOMING'||m.category==='CONCERT')
             .concat(movies.filter(m=>m.category==='RE_RELEASE').slice(0,2));
@@ -243,7 +336,6 @@
     <div class="dots">${heroList.map((_,i)=>`<i class="${i===heroIdx?'on':''}" onclick="heroIdx=${i};drawHero()"></i>`).join('')}</div>`;
     }
 
-    /* ---------- home grid ---------- */
     function setLang(v){lang=v;render();}
     function setTab(v){tab=v;render();}
     function posterBox(m,extra=''){
@@ -263,13 +355,13 @@
       <div class="info"><h3>${m.title}</h3><p>${m.genre}</p></div></div>`).join(''):'<p>Intha filter la ethuvum illa 😅</p>';
     }
 
-    /* ---------- modal ---------- */
     function openMovie(id){
         cur=movies.find(m=>m.id===id);
-        st={step:0,lang:cur.language,format:cur.formats.split(',')[0],seats:[],snacks:{},coupon:'',couponMsg:'',pay:'UPI',friends:1,trailer:false,city:'Madurai',dateIdx:0,theatre:'',time:'',dateLabel:''};
+        st={step:0,lang:cur.language,format:cur.formats.split(',')[0],seats:[],snacks:{},coupon:'',couponMsg:'',pay:'UPI',friends:1,trailer:false,city:'Madurai',dateIdx:0,theatre:'',time:'',dateLabel:'',
+            bank:'',nbUser:'',nbPass:'',cardNo:'',cardName:'',cardExp:'',cvv:'',wallet:'Paytm Wallet',walletNo:''};
         $('modal').style.display='flex'; view();
     }
-    function closeModal(){clearInterval(timer);$('modal').style.display='none';$('box').innerHTML='';}
+    function closeModal(){clearInterval(timer);clearInterval(qrTimer);$('modal').style.display='none';$('box').innerHTML='';}
     function go(s){st.step=s;if(s===1)startTimer();view();}
     function startTimer(){
         clearInterval(timer); let t=300;
@@ -335,9 +427,122 @@
         st.trailer=true; view();
     }
 
+    /* ---------- seat map ---------- */
+    function fakeSold(id){
+        const key=cur.id+'|'+st.theatre+'|'+st.time+'|'+st.dateIdx+'|'+id;
+        let h=7; for(let i=0;i<key.length;i++) h=(h*31+key.charCodeAt(i))%1000003;
+        return h%100<24;
+    }
+    const isTaken=id=>cur.bookedSeatList.includes(id)||fakeSold(id);
+
+    function seatMap(){
+        let h='';
+        TIERS.forEach(t=>{
+            h+=`<div class="tier"><b>₹${Math.round(cur.price*mult(t.from))}</b> ${t.name}</div>`;
+            for(let r=t.from;r<=t.to;r++){
+                const L=ROWS[r];
+                h+=`<div class="row"><b>${L}</b>`;
+                BLOCKS.forEach(([a,z])=>{
+                    h+='<div class="blk">';
+                    for(let n=a;n<=z;n++){
+                        const id=L+n, taken=isTaken(id), sel=st.seats.includes(id);
+                        h+=`<button class="seat ${taken?'taken':''} ${sel?'sel':''}" ${taken?'disabled':''} onclick="toggle('${id}')">${n}</button>`;
+                    }
+                    h+='</div>';
+                });
+                h+=`<b>${L}</b></div>`;
+            }
+        });
+        return `<div class="map">${h}</div>`;
+    }
+
+    /* ---------- demo QR ---------- */
+    function fakeQR(seed){
+        const N=25; let s=(seed*9301+49297)%233280||1;
+        const rnd=()=>{s=(s*9301+49297)%233280;return s/233280;};
+        const finder=(x,y)=>(x<7&&y<7)||(x>=N-7&&y<7)||(x<7&&y>=N-7);
+        let r='';
+        for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+            let on;
+            if(finder(x,y)){
+                const fx=x<7?x:x-(N-7), fy=y<7?y:y-(N-7);
+                on=(fx===0||fx===6||fy===0||fy===6)||(fx>=2&&fx<=4&&fy>=2&&fy<=4);
+            } else on=rnd()>0.52;
+            if(on) r+=`<rect x="${x}" y="${y}" width="1" height="1"/>`;
+        }
+        return `<svg viewBox="0 0 ${N} ${N}" shape-rendering="crispEdges" fill="#111">${r}</svg>`;
+    }
+    function confetti(){
+        const cols=['#e11d2e','#f7b733','#22c55e','#4f7cff','#fff','#e879f9'];
+        return Array.from({length:36},()=>`<span class="cf" style="left:${Math.random()*100}%;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${2+Math.random()*2}s;animation-delay:${Math.random()*1.2}s"></span>`).join('');
+    }
+    function startQrTimer(){
+        clearInterval(qrTimer); let t=300;
+        qrTimer=setInterval(()=>{
+            t--; const e=$('qt'); if(e) e.innerText=`⏳ QR expires in ${Math.floor(t/60)}:${String(t%60).padStart(2,'0')}`;
+            if(t<=0){clearInterval(qrTimer);alert('QR expired. Please try again.');go(3);}
+        },1000);
+    }
+
+    /* ---------- payment forms (demo only) ---------- */
+    function payForm(){
+        const note='<div class="secure">🔒 Demo only. Details are not sent or saved. Use dummy values.</div>';
+        if(st.pay==='UPI') return `<div class="upihint">📲 Click "Pay with UPI" to open the scanner page. Scan with GPay / PhonePe / Paytm.</div>`;
+        if(st.pay==='Card') return `<div class="pform"><h4>💳 Credit / Debit Card</h4>
+    <div class="fld"><label>Card number</label><input type="tel" inputmode="numeric" maxlength="19" placeholder="1234 5678 9012 3456" value="${esc(st.cardNo)}" oninput="fmtCard(this)"></div>
+    <div class="fld"><label>Name on card</label><input type="text" placeholder="Name on card" value="${esc(st.cardName)}" oninput="st.cardName=this.value"></div>
+    <div class="frow">
+      <div class="fld"><label>Expiry (MM/YY)</label><input type="text" maxlength="5" placeholder="MM/YY" value="${esc(st.cardExp)}" oninput="fmtExp(this)"></div>
+      <div class="fld"><label>CVV</label><input type="password" inputmode="numeric" maxlength="3" placeholder="***" value="${esc(st.cvv)}" oninput="this.value=this.value.replace(/\\D/g,'');st.cvv=this.value"></div>
+    </div>${note}</div>`;
+        if(st.pay==='NetBanking') return `<div class="pform"><h4>🏦 Net Banking</h4>
+    <div class="fld"><label>Select your bank</label><select onchange="st.bank=this.value"><option value="">-- Select bank --</option>${BANKS.map(b=>`<option ${st.bank===b?'selected':''}>${b}</option>`).join('')}</select></div>
+    <div class="fld"><label>User ID / Customer ID</label><input type="text" placeholder="User ID" value="${esc(st.nbUser)}" oninput="st.nbUser=this.value"></div>
+    <div class="fld"><label>Password</label><input type="password" placeholder="Password" value="${esc(st.nbPass)}" oninput="st.nbPass=this.value"></div>
+    ${note}</div>`;
+        if(st.pay==='Wallet') return `<div class="pform"><h4>👛 Wallet</h4>
+    <div class="fld"><label>Select wallet</label><select onchange="st.wallet=this.value">${WALLETS.map(w=>`<option ${st.wallet===w?'selected':''}>${w}</option>`).join('')}</select></div>
+    <div class="fld"><label>Registered mobile number</label><input type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" value="${esc(st.walletNo)}" oninput="this.value=this.value.replace(/\\D/g,'');st.walletNo=this.value"></div>
+    ${note}</div>`;
+        return `<div class="upihint">🎟️ Pay at the theatre counter before the show. Your seats are held for 30 minutes before showtime.</div>`;
+    }
+    function fmtCard(el){
+        const d=el.value.replace(/\D/g,'').slice(0,16);
+        el.value=d.replace(/(.{4})/g,'$1 ').trim(); st.cardNo=el.value;
+    }
+    function fmtExp(el){
+        let d=el.value.replace(/\D/g,'').slice(0,4);
+        if(d.length>2) d=d.slice(0,2)+'/'+d.slice(2);
+        el.value=d; st.cardExp=d;
+    }
+    function validatePay(){
+        if(st.pay==='Card'){
+            if(st.cardNo.replace(/\s/g,'').length!==16) return 'Enter a valid 16-digit card number';
+            if(!st.cardName.trim()) return 'Enter the name on the card';
+            if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(st.cardExp)) return 'Enter expiry as MM/YY';
+            if(!/^\d{3}$/.test(st.cvv)) return 'Enter the 3-digit CVV';
+        }
+        if(st.pay==='NetBanking'){
+            if(!st.bank) return 'Please select your bank';
+            if(!st.nbUser.trim()) return 'Enter your User ID';
+            if(!st.nbPass) return 'Enter your password';
+        }
+        if(st.pay==='Wallet'){
+            if(!/^\d{10}$/.test(st.walletNo)) return 'Enter a valid 10-digit mobile number';
+        }
+        return '';
+    }
+    function startPay(){
+        if(st.pay==='UPI'){go(6);return;}
+        const err=validatePay();
+        if(err){alert(err);return;}
+        pay();
+    }
+
     function view(){
         const m=cur, b=$('box'), X=`<button class="x" style="background:none;color:var(--text)" onclick="closeModal()">✕</button>`;
-        b.className='box'+(st.step===0?' full':'');
+        clearInterval(qrTimer);
+        b.className='box'+(st.step===0?' full':(st.step===1||st.step===6)?' screenfull':'');
 
         if(st.step===0) b.innerHTML=detailPage(m);
 
@@ -366,27 +571,43 @@
         }
 
         if(st.step===1){
-            const rows=Math.ceil(m.totalSeats/10); let h='';
-            for(let r=0;r<rows;r++){
-                const L=String.fromCharCode(65+r), tier=r<2?'Premium':r<5?'Gold':'Silver';
-                h+=`<div class="row"><b>${L}</b>`;
-                for(let n=1;n<=10;n++){
-                    const id=L+n, taken=m.bookedSeatList.includes(id), sel=st.seats.includes(id);
-                    h+=`<button class="seat ${taken?'taken':''} ${sel?'sel':''}" ${taken?'disabled':''} onclick="toggle('${id}')">${n}</button>`;
-                }
-                h+=`<small>${tier} ₹${Math.round(m.price*mult(r))}</small></div>`;
-            }
-            b.innerHTML=X+`<div class="timer" id="tm">⏳ Seats hold: 5:00</div>
-      <h3>${m.title} (${st.lang}, ${st.format})</h3>
-      <p style="color:var(--muted);font-size:14px">${st.theatre} | ${st.dateLabel} | ${st.time}</p>
-      <div style="margin:10px 0">🤖 Best seats auto-pick:
-        <select id="autoN">${[1,2,3,4,5,6].map(n=>`<option>${n}</option>`).join('')}</select>
-        <button class="chip" onclick="autoPick()">Pick together</button></div>
-      <div class="screen">SCREEN THIS SIDE</div>${h}
-      <p style="text-align:center;font-size:12px;margin:10px;color:var(--muted)">⬜ Available 🟩 Selected ⬛ Booked</p>
-      <p style="text-align:center;font-weight:bold">${st.seats.length?st.seats.join(', ')+' = ₹'+seatsTotal():'Seat select pannu'}</p>
-      <div class="bar"><button class="btn sec" onclick="go(5)">Back</button>
-      <button class="btn" ${st.seats.length?'':'disabled'} onclick="go(2)">Next: Snacks</button></div>`;
+            const sel=st.seats.length?st.seats.map(s=>`<div class="sl-row"><span>${s}</span><span>₹${seatPrice(s)}<u onclick="toggle('${s}')">✕</u></span></div>`).join(''):'<div class="empty">Seat select pannu</div>';
+            b.innerHTML=`<div class="sp">
+      <button class="x" onclick="closeModal()">✕</button>
+      <div class="sp-top">
+        <div class="sp-bg" style="background-image:url('${banner(m)}')"></div>
+        <div class="sp-bgc g-${m.category}" style="opacity:.25"></div>
+        <div class="sp-in">
+          <div class="crumb"><a onclick="go(5)">‹ BACK</a><span class="on">SELECT SEATS</span><span>›</span><span>SNACKS</span><span>›</span><span>PAYMENT</span><span>›</span><span>CONFIRMATION</span></div>
+          <div class="mv">
+            <div class="pp g-${m.category}"><img src="${m.posterUrl}" onerror="this.remove()"></div>
+            <div class="tt">
+              <div class="pills"><span class="pill">UA</span><span>⭐ ${m.rating||'New'}</span><span>•</span><span>${m.duration}</span><span>•</span><span>${st.lang}</span><span>•</span><span>${st.format}</span></div>
+              <h2>${m.title}</h2>
+              <div class="pills">${m.genre}</div>
+              <div class="dtl"><div>THEATRE<b>${st.theatre}</b></div><div>DATE<b>${st.dateLabel}</b></div><div>TIME<b>${st.time}</b></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sp-main">
+        <div class="sp-left">
+          <div class="sp-h"><h3>Choose seats</h3>
+            <div class="lgd"><span><i></i>Available</span><span class="bk"><i></i>Sold</span><span class="sl"><i></i>Selected</span></div></div>
+          <div class="timer" id="tm">⏳ Seats hold: 5:00</div>
+          <div class="auto">🤖 Best seats auto-pick:
+            <select id="autoN">${[1,2,3,4,5,6].map(n=>`<option>${n}</option>`).join('')}</select>
+            <button class="chip" onclick="autoPick()">Pick together</button></div>
+          <div class="seats">${seatMap()}
+            <div class="curve"></div><div class="curve-l">ALL EYES THIS WAY PLEASE (SCREEN)</div>
+          </div>
+        </div>
+        <div class="sp-right">
+          <div class="sel-t">SELECTED SEATS</div>
+          ${sel}
+          <button class="buy" ${st.seats.length?'':'disabled'} onclick="go(2)">${st.seats.length?'CONTINUE (₹'+seatsTotal()+')':'SELECT SEATS'}</button>
+        </div>
+      </div></div>`;
         }
 
         if(st.step===2){
@@ -403,31 +624,57 @@
 
         if(st.step===3){
             const methods=[['UPI','📱 UPI (GPay / PhonePe)'],['Card','💳 Credit / Debit Card'],['NetBanking','🏦 Net Banking'],['Wallet','👛 Wallet'],['Pay at Theatre','🎟️ Pay at Theatre']];
+            const upi=st.pay==='UPI';
+            const btnTxt=upi?'📱 Pay ₹'+total()+' with UPI':'Pay ₹'+total();
             b.innerHTML=X+`<h3>Payment</h3>`+methods.map(([v,l])=>
                     `<label class="pay"><input type="radio" name="pm" ${st.pay===v?'checked':''} onchange="st.pay='${v}';view()">${l}</label>`).join('')+
-                (st.pay==='UPI'?`<input type="text" placeholder="yourname@upi" style="width:100%">`:'')+
-                (st.pay==='Card'?`<input type="text" placeholder="Card number (demo)" style="width:100%">`:'')+
-                `<div class="sum">👯 Friends oda split pannalama?
+                payForm()+
+                `<div class="sum">👯 Split with friends?
         <select onchange="st.friends=+this.value;view()">${[1,2,3,4,5,6].map(n=>`<option ${st.friends===n?'selected':''}>${n}</option>`).join('')}</select> per head
         <br>Per person: <b>₹${Math.ceil(total()/st.friends)}</b><br><span class="t">Total: ₹${total()}</span></div>
-      <p style="font-size:12px;color:var(--muted);margin-top:8px">⚠️ Demo payment, real paisa cut aagadhu.</p>
+      <p style="font-size:12px;color:var(--muted);margin-top:8px">⚠️ Demo payment. No real money is charged.</p>
       <div class="bar"><button class="btn sec" onclick="go(2)">Back</button>
-      <button class="btn" id="payBtn" onclick="pay()">Pay ₹${total()}</button></div>`;
+      <button class="btn" id="payBtn" onclick="startPay()">${btnTxt}</button></div>`;
+        }
+
+        if(st.step===6){
+            b.innerHTML=`<div class="scanpg">
+      <button class="x" onclick="go(3)">✕</button>
+      <div class="sc-in">
+        <div class="sc-h">Scan & Pay</div>
+        <div class="sc-s">${m.title} • ${st.seats.length} ticket${st.seats.length>1?'s':''} • ${st.seats.join(', ')}</div>
+        <div class="viewf"><i class="c c1"></i><i class="c c2"></i><i class="c c3"></i><i class="c c4"></i>
+          <div class="qrwrap">${fakeQR(Math.round(total())+cur.id*7)}<div class="scanline"></div></div></div>
+        <div class="amt">₹${total()}</div>
+        <div class="upi">Paying to kollytix@upi</div>
+        <div class="qt" id="qt">⏳ QR expires in 5:00</div>
+        <div class="apps"><span>GPay</span><span>PhonePe</span><span>Paytm</span><span>BHIM</span></div>
+        <div class="bar"><button class="btn sec" onclick="go(3)">Cancel</button>
+        <button class="btn" id="payBtn" onclick="pay()">Pay ₹${total()}</button></div>
+        <div class="sc-note">Scan this QR with any UPI app. (Demo QR)</div>
+      </div></div>`;
+            startQrTimer();
         }
 
         if(st.step===4){
-            const k=st.booking;
-            b.innerHTML=X+`<div class="ticket"><h2>🎉 Booking Confirmed!</h2>
-      <p style="font-size:22px;font-weight:bold">${k.movieTitle}</p>
-      <p>${k.language} | ${k.format}</p>
-      <p>📍 ${st.theatre} | 📅 ${st.dateLabel} | 🕒 ${st.time}</p>
-      <p>💺 Seats: <b>${k.seats}</b></p>
-      <p>💰 ₹${k.amount} via ${k.paymentMethod}</p>
-      <p style="color:var(--muted);font-size:13px">${k.bookedAt}</p>
-      <div class="bars">${k.bookingCode.split('').map(c=>`<i style="width:${1+c.charCodeAt(0)%4}px"></i>`).join('')}</div>
-      <p><b>${k.bookingCode}</b></p></div>
+            const k=st.booking, concert=m.category==='CONCERT';
+            b.innerHTML=X+`<div class="conf">${confetti()}
+      <svg class="tick" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M14 27l8 8 16-16"/></svg>
+      <h2>Order Confirmed!</h2>
+      <div class="sub">Payment successful • ${k.paymentMethod} • ₹${k.amount}</div>
+      <div class="ticket">
+        <h3>${k.movieTitle}</h3>
+        <p>${k.language} | ${k.format}</p>
+        <p>📍 ${st.theatre} | 📅 ${st.dateLabel} | 🕒 ${st.time}</p>
+        <p>💺 Seats: <b>${k.seats}</b></p>
+        <p style="color:var(--muted);font-size:12px">${k.bookedAt}</p>
+        <div class="bars">${k.bookingCode.split('').map(c=>`<i style="width:${1+c.charCodeAt(0)%4}px"></i>`).join('')}</div>
+        <p><b>${k.bookingCode}</b></p>
+      </div>
+      <div class="enjoy">${concert?'Enjoy the show! 🎤🔥':'Enjoy the cinema! 🍿🎬'}</div>
       <div class="bar"><button class="btn sec" onclick="window.print()">🖨️ Print / Save</button>
-      <button class="btn" onclick="closeModal()">Done</button></div>`;
+      <button class="btn" onclick="closeModal()">Done</button></div>
+    </div>`;
         }
     }
 
@@ -442,22 +689,30 @@
         view();
     }
     function autoPick(){
-        const n=+$('autoN').value, rows=Math.ceil(cur.totalSeats/10);
-        const order=[...Array(rows).keys()].sort((a,b)=>Math.abs(a-3)-Math.abs(b-3));
-        for(const r of order){
-            const L=String.fromCharCode(65+r);
-            const starts=[...Array(10-n+1).keys()].sort((a,b)=>Math.abs(a+n/2-5)-Math.abs(b+n/2-5));
-            for(const s of starts){
-                const ids=[...Array(n).keys()].map(i=>L+(s+i+1));
-                if(ids.every(id=>!cur.bookedSeatList.includes(id))){st.seats=ids;view();return;}
+        const n=+$('autoN').value;
+        const rowOrder=[...ROWS.keys()].sort((a,b)=>Math.abs(a-3)-Math.abs(b-3));
+        const blockOrder=[BLOCKS[1],BLOCKS[0],BLOCKS[2]];
+        for(const r of rowOrder){
+            const L=ROWS[r];
+            for(const [a,z] of blockOrder){
+                if(n>z-a+1) continue;
+                const centre=(a+z)/2;
+                const starts=[];
+                for(let s=a;s<=z-n+1;s++) starts.push(s);
+                starts.sort((x,y)=>Math.abs(x+(n-1)/2-centre)-Math.abs(y+(n-1)/2-centre));
+                for(const s of starts){
+                    const ids=[...Array(n).keys()].map(i=>L+(s+i));
+                    if(ids.every(id=>!isTaken(id))){st.seats=ids;view();return;}
+                }
             }
         }
         alert('Together ah seats illa 😅');
     }
 
     async function pay(){
-        $('payBtn').disabled=true; $('payBtn').innerText='Processing...';
-        await new Promise(r=>setTimeout(r,1200));
+        const pb=$('payBtn'); pb.disabled=true;
+        pb.innerText=st.pay==='NetBanking'?'Redirecting to bank...':'Processing payment...';
+        await new Promise(r=>setTimeout(r,1500));
         const res=await fetch('/api/bookings',{method:'POST',headers:{'Content-Type':'application/json'},
             body:JSON.stringify({movieId:cur.id,seats:st.seats,language:st.lang,format:st.format,
                 paymentMethod:st.pay,snackAmount:snackTotal(),coupon:st.coupon})});
